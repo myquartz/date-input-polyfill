@@ -28,7 +28,8 @@ export default class Input {
             if(!this.element.value) {
               return null;
             }
-            const format = this.format || 'yyyy-mm-dd';
+            const isISO = this.element.value.match(/^(19|20)\d{2}-[01]\d-[0123]\d$/);
+            const format = isISO ? 'yyyy-mm-dd' : this.format || 'yyyy-mm-dd';
             const parts = this.element.value.match(/(\d+)/g);
             let i = 0, fmt = {};
 

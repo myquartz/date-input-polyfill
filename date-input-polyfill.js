@@ -1,6 +1,13 @@
 import './date-input-polyfill.scss';
 import Input from './input.js';
 
+export const addPicker = (elm) => {
+	if(elm && !elm.getAttribute('data-has-picker') 
+		&& (elm.getAttribute('type')=='text' || !Input.supportsDateInput())) {
+		new Input(elm);
+	}
+}
+
 const addPickers = () => {
   Input.addPickerToOtherInputs();
   // Check if type="date" is supported.
@@ -10,7 +17,7 @@ const addPickers = () => {
 };
 
 // Run the above code on any <input type="date"> in the document, also on dynamically created ones.
-addPickers();
+//addPickers();
 
 document.addEventListener(`DOMContentLoaded`, () => {
   addPickers();
@@ -18,6 +25,7 @@ document.addEventListener(`DOMContentLoaded`, () => {
 
 // This is also on mousedown event so it will capture new inputs that might
 // be added to the DOM dynamically.
-document.querySelector(`body`).addEventListener(`mousedown`, () => {
-  addPickers();
-});
+//document.querySelector(`body`).addEventListener(`mousedown`, () => {
+//  addPickers();
+//});
+//window.addPicker = addPicker;

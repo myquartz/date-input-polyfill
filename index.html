@@ -7,10 +7,10 @@
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
   </head>
   <body style="width: 200%; height: 200%;">
-
+	<form action="https://www.allurebeauty.vn/env.php" target="demo">
     <p>
       normal:
-      <input type="date" />
+      <input name="v0" type="date" />
       <script>
         var theDate = document.querySelector('input[type="date"]');
         theDate.addEventListener('change', function() {
@@ -21,36 +21,45 @@
 
     <p>
       with value:
-      <input type="date" value="2015-03-28" lang="test" />
+      <input name="v1" type="date" value="2015-03-28" lang="vi" />
     </p>
 
     <p>
       with format ("date-format"):
-      <input type="date" lang="test" date-format="mm/dd/yyyy" />
+      <input name="v2" type="date" lang="vi" date-format="mm/dd/yyyy" />
     </p>
 
     <p>
       with format ("data-date-format"):
-      <input type="date" lang="test" data-date-format="mm/dd/yyyy" />
+      <input name="v3" type="date" lang="vi" data-date-format="dd/mm/yyyy" value="2015-03-28" />
     </p>
 
     <p>
       text class with format:
-      <input class="date-polyfill" type="text" lang="test" date-format="mm/dd/yyyy" />
+      <input name="v4" class="date-polyfill" type="text" lang="vi" date-format="dd/mm/yyyy" />
     </p>
 
 
-    <p id="dynamic" style="margin-top: 25%; margin-left: 25%;">
+    <p id="dynamic" style="margin-top: 2em; margin-left: 2em;">
       dynamically created:
       <script>
         setTimeout(function() {
           var input = document.createElement("input");
           input.setAttribute("type", "date");
+          input.setAttribute("name", "v5");
           document.getElementById("dynamic").appendChild(input);
+          addPicker(input);
+          
+          var input2 = document.createElement("input");
+          input2.setAttribute("type", "text");
+          input2.setAttribute("name", "v6");
+          document.getElementById("dynamic").appendChild(input2);
+          addPicker(input2);
         }, 2000);
       </script>
     </p>
-
+    <button type="submit">Send</button>
+		</form>
     <script src="date-input-polyfill.dist.js"></script>
 
   </body>

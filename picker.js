@@ -187,11 +187,14 @@ class Picker {
   sync() {
     // fixes bug where an empty calendar appears if year is missing from keyboard input
     if (!isNaN(Date.parse(this.input.valueAsDate))) {
-      this.date = Picker.absoluteDate(this.input.valueAsDate);
+  		console.debug(this.input.valueAsDate, ' zone:',this.input.valueAsDate.getTimezoneOffset());
+      //this.date = Picker.absoluteDate(this.input.valueAsDate);
+      this.date = this.input.valueAsDate;
     } else {
       this.date = new Date();
     }
-
+		console.debug(this.date, ' zone:',this.date.getTimezoneOffset());
+		
     this.year.value = this.date.getFullYear();
     this.month.value = this.date.getMonth();
     this.refreshDaysMatrix();
@@ -246,7 +249,8 @@ class Picker {
     ).getDate(); // Get days in month (1-31).
 
     // The input's current date.
-    const selDate = Picker.absoluteDate(this.input.valueAsDate) || false;
+    //const selDate = Picker.absoluteDate(this.input.valueAsDate) || false;
+    const selDate = this.input.valueAsDate || false;
 
     // Are we in the input's currently-selected month and year?
     const selMatrix =
