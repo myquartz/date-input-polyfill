@@ -1,42 +1,35 @@
 var webpack = require('webpack');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
   entry: './date-input-polyfill.js',
 
-  plugins: [
-    new webpack.optimize.UglifyJsPlugin({
-      mangle: {
-        except: ['$super', '$', 'exports', 'require']
-      },
-      compress: {
-        warnings: false
-      }
-    })
-  ],
-
   resolve: {
-    extensions: ['', '.js']
+    extensions: ['.js']
   },
 
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
         exclude: /(node_modules)/,
-        loader: 'babel',
-        query: {
-          plugins: ['transform-runtime'],
-          presets: ['es2015', 'stage-3'],
-          cacheDirectory: true
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['babel-preset-es2015']
+          }
         }
       },
       {
-        test: /\.css$/,
-        loader: 'style!css'
-      },
-      {
-        test: /\.scss$/,
-        loader: 'style!css!sass'
+        test: /\.s[ac]ss$/i,
+        use: [
+          // Creates `style` nodes from JS strings
+          'style-loader',
+          // Translates CSS into CommonJS
+          'css-loader',
+          // Compiles Sass to CSS
+          'sass-loader',
+        ],
       }
     ]
   },
@@ -46,5 +39,20 @@ module.exports = {
     path: process.cwd()+'/',
     filename: 'date-input-polyfill.dist.js',
     libraryTarget: 'umd'
+  },
+  optimization: {
+    minimizer: [
+      // we specify a custom UglifyJsPlugin here to get source maps in production
+      new UglifyJsPlugin({
+        cache: true,
+        parallel: true,
+        uglifyOptions: {
+          compress: false,
+          ecma: 6,
+          mangle: true
+        },
+        sourceMap: true
+      })
+    ]
   }
 };

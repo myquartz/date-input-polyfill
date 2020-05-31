@@ -187,13 +187,12 @@ class Picker {
   sync() {
     // fixes bug where an empty calendar appears if year is missing from keyboard input
     if (!isNaN(Date.parse(this.input.valueAsDate))) {
-  		console.debug(this.input.valueAsDate, ' zone:',this.input.valueAsDate.getTimezoneOffset());
+  		console.debug('loaded date', this.date, ' zone:',this.date.getTimezoneOffset());
       //this.date = Picker.absoluteDate(this.input.valueAsDate);
       this.date = this.input.valueAsDate;
     } else {
       this.date = new Date();
     }
-		console.debug(this.date, ' zone:',this.date.getTimezoneOffset());
 		
     this.year.value = this.date.getFullYear();
     this.month.value = this.date.getMonth();

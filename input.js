@@ -10,6 +10,7 @@ export default class Input {
     this.locale =
       this.element.getAttribute(`lang`)
       || document.body.getAttribute(`lang`)
+      || document.getElementsByTagName('html')[0].getAttribute('lang')
       || `en`;
 
     this.format = this.element.getAttribute('date-format')
@@ -19,6 +20,17 @@ export default class Input {
       || `yyyy-mm-dd`;
 
     this.localeText = this.getLocaleText();
+
+    //adjust date from ISO formatted value to speficic format
+    if(this.format && this.format != 'yyyy-mm-dd'
+      && this.element.value) {//from ISO formatted value to not ISO8601 format
+        var isodate = this.element.value.match(/^(19\d{2}|20\d{2})-([01]\d)-([0123]\d)$/);
+        if(isodate) {
+          var d = new Date(isodate[1],isodate[2]-1,isodate[3]);
+          console.debug('formatting of ISO8601 date init value: ',d);
+          this.element.value = dateFormat(d, this.format);
+        }
+    }
 
     Object.defineProperties(
       this.element,
@@ -70,9 +82,9 @@ export default class Input {
     // Update the picker if the date changed manually in the input.
     this.element.addEventListener(`keydown`, e => {
       const date = new Date();
-
+      console.debug('Key: ',e.keyCode);
       switch(e.keyCode) {
-        case 9:
+        //case 9:
         case 27:
           thePicker.hide();
           break;
@@ -136,12 +148,13 @@ export default class Input {
     const length = dateInputs.length;
 
     if(!length) {
-      return false;
+      return 0;
     }
 
     for(let i = 0; i < length; ++i) {
       new Input(dateInputs[i]);
     }
+    return length;
   }
 
   static addPickerToOtherInputs() {
@@ -150,11 +163,12 @@ export default class Input {
     const length = dateInputs.length;
 
     if(!length) {
-      return false;
+      return 0;
     }
 
     for(let i = 0; i < length; ++i) {
       new Input(dateInputs[i]);
     }
+    return length;
   }
 }

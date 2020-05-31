@@ -432,7 +432,7 @@ const locales = {
       `Tháng 12`
     ],
     today: `H.nay`,
-    format: `dd/mm/yyyy`
+    //not used - format: `dd/mm/yyyy`
   }
 };
 

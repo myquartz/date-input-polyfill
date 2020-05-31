@@ -8,12 +8,13 @@ export const addPicker = (elm) => {
 	}
 }
 
-const addPickers = () => {
-  Input.addPickerToOtherInputs();
+export const addPickers = () => {
+  var c = Input.addPickerToOtherInputs();
   // Check if type="date" is supported.
   if(!Input.supportsDateInput()) {
-    Input.addPickerToDateInputs();
+    c += Input.addPickerToDateInputs();
   }
+  return c;
 };
 
 // Run the above code on any <input type="date"> in the document, also on dynamically created ones.
@@ -28,4 +29,3 @@ document.addEventListener(`DOMContentLoaded`, () => {
 //document.querySelector(`body`).addEventListener(`mousedown`, () => {
 //  addPickers();
 //});
-//window.addPicker = addPicker;
