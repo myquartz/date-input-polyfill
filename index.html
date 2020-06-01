@@ -6,7 +6,7 @@
     <meta name="description" content="Polyfill Test">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
   </head>
-  <body style="width: 200%; height: 200%; background-color: #dddddd;">
+  <body style="width: 100%; height: auto; background-color: #dddddd;" class="no-auto-polyfill">
 	<form action="https://esi.vn/devhelp/cors-post-data" method="GET" target="demo">
     <p>
       normal:
@@ -36,7 +36,7 @@
 
     <p>
       text class with format:
-      <input name="v4" class="date-polyfill" type="text" lang="vi" date-format="dd/mm/yyyy" />
+      <input name="v4" class="date-polyfill" type="text" lang="vi" date-format="dd/mm/yyyy" autocomplete="off" />
     </p>
 
 

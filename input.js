@@ -141,10 +141,12 @@ export default class Input {
     return !(input.value === notADateValue);
   }
 
-  // Will add the Picker to all inputs in the page.
-  static addPickerToDateInputs() {
+  // Will add the Picker to all inputs in the page or from rootTreeElm
+  static addPickerToDateInputs(rootTreeElm) {
+  	//only in the tree
+    rootTreeElm = rootTreeElm || document;
     // Get and loop all the input[type="date"]s in the page that do not have `[data-has-picker]` yet.
-    const dateInputs = document.querySelectorAll(`input[type="date"]:not([data-has-picker])`);
+    const dateInputs = rootTreeElm.querySelectorAll(`input[type="date"]:not([data-has-picker])`);
     const length = dateInputs.length;
 
     if(!length) {
@@ -157,9 +159,11 @@ export default class Input {
     return length;
   }
 
-  static addPickerToOtherInputs() {
+  static addPickerToOtherInputs(rootTreeElm) {
+  	//only in the tree
+    rootTreeElm = rootTreeElm || document;
     // Get and loop all the input[type="text"] class date-polyfill in the page that do not have `[data-has-picker]` yet.
-    const dateInputs = document.querySelectorAll(`input[type="text"].date-polyfill:not([data-has-picker])`);
+    const dateInputs = rootTreeElm.querySelectorAll(`input[type="text"].date-polyfill:not([data-has-picker])`);
     const length = dateInputs.length;
 
     if(!length) {
